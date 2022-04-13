@@ -16,6 +16,9 @@ public class PlayerData : MonoBehaviour
     public string Name_HighScore;
     public int Score_HighScore;
 
+    public string[] Alphabet = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S",
+    "T","U","V","W","X","Y","Z"};
+
     private void Awake(){
 
         /*checking to see if there is already an instance loaded
@@ -51,7 +54,7 @@ public class PlayerData : MonoBehaviour
 
               File.WriteAllText(Application.persistentDataPath + "/highscore.json", json);
     }
-    
+
     public void LoadHighScore(){
         // will load the high score info from JSON file
         string path = Application.persistentDataPath + "/highscore.json";

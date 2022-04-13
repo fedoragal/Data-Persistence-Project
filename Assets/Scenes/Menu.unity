@@ -1778,6 +1778,33 @@ MonoBehaviour:
   PlayerScore: 0
   Name_HighScore: 
   Score_HighScore: 0
+  Alphabet:
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
+  - K
+  - L
+  - M
+  - N
+  - O
+  - P
+  - Q
+  - R
+  - S
+  - T
+  - U
+  - V
+  - W
+  - X
+  - Y
+  - Z
 --- !u!4 &1889674970
 Transform:
   m_ObjectHideFlags: 0
