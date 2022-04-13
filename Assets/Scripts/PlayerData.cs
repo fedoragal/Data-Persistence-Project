@@ -42,19 +42,16 @@ public class PlayerData : MonoBehaviour
 
 
     public void SaveHighScore(){
-        /*checks to see if the new score is better than the current high score
-          then saves the new score if it is */
-          if(PlayerScore > Score_HighScore){
+        //saves the current high score, already verified in script that calls it
               SaveData data = new SaveData();
-              data.SaveScore = PlayerScore;
-              data.SaveName = PlayerName;
+              data.SaveScore = Score_HighScore;
+              data.SaveName = Name_HighScore;
 
               string json = JsonUtility.ToJson(data);
 
               File.WriteAllText(Application.persistentDataPath + "/highscore.json", json);
-          }
-
     }
+    
     public void LoadHighScore(){
         // will load the high score info from JSON file
         string path = Application.persistentDataPath + "/highscore.json";
