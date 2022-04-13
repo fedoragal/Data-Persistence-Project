@@ -12,6 +12,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text NameText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -19,6 +20,9 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    public TMP_Text HighScoreName;
+    public TMP_Text HighScore;
+    public int HighScoreVal;
     
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,15 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+
+        /* START OF MY ADDED CODE */
+        //Show the player name by the score
+        ScoreText.text = PlayerData.Instance.PlayerName + $"'s Score : {m_Points}";
+
+        //grab the high score & name and add it to the game object
+        UpdateHighScore();
+
     }
 
     private void Update()
@@ -63,15 +76,41 @@ public class MainManager : MonoBehaviour
         }
     }
 
+    void UpdateHighScore(){
+           //check to make sure we actually have a high score
+           if(m_Points > PlayerData.Instance.Score_HighScore){
+               //change on screen display if they have the high score
+               HighScoreName.text = PlayerData.Instance.PlayerName;
+               HighScore.text = m_Points.ToString();
+                //turn the score field object back on
+                HighScore.gameObject.SetActive(true);
+               
+               //change the global high score
+               PlayerData.Instance.Name_HighScore = PlayerData.Instance.PlayerName;
+               PlayerData.Instance.Score_HighScore = m_Points;
+
+               PlayerData.Instance.SaveHighScore();
+
+            } else if(PlayerData.Instance.Score_HighScore != 0){
+                HighScoreName.text = PlayerData.Instance.Name_HighScore;
+                HighScore.text = PlayerData.Instance.Score_HighScore.ToString();
+            } else {
+                //set hide the score#'s and set the current high score to none
+                HighScoreName.text = "Be the first!";
+                HighScore.gameObject.SetActive(false);
+            }
+    }
+    
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = PlayerData.Instance.PlayerName + $"'s Score : {m_Points}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        UpdateHighScore();
     }
 }
